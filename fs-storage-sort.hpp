@@ -1,4 +1,3 @@
-
 #ifndef _file_sort_hpp
 #define _file_sort_hpp
 
@@ -92,15 +91,14 @@ struct filesort {
 				opposite = (base < opposite) ? opposite-1 : opposite+1;
 			}
 		}
+		
+		if ( base == 0 || (base + 1) == right )
+			return;
 
-		if ( left < base-1 ) {
-			if ( base == 0 ) return;
+		if ( left < base-1 )
 			sort(cmp, left, base-1);
-		}
-		if ( base+1 < right ) {
-			if ( (base + 1) == right ) return;
+		if ( base+1 < right )
 			sort(cmp, base+1, right);
-		}
 	}
 
 private:
