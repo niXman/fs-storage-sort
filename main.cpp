@@ -1,4 +1,3 @@
-
 #include "fs-storage-sort.hpp"
 
 #include <cstring>
@@ -8,7 +7,7 @@
 /***************************************************************************/
 
 struct user {
-  int age;
+	int age;
 	char born[32];
 	char name[32];
 	char address[32];
