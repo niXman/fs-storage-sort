@@ -57,13 +57,36 @@ void user_test(const char *fname, const std::size_t count) {
 	fs.flush();
 
 	printf("%s\n", "age:");
-	user_sort_and_print(age_comparator, count, fs, [](const std::size_t idx, const user &u) { printf("idx=%lu, age=%u\n", idx, u.age); });
+	user_sort_and_print(
+		 age_comparator
+		,count
+		,fs
+		,[](const std::size_t idx, const user &u) { printf("idx=%lu, age=%u\n", idx, u.age); }
+	);
+	
 	printf("%s\n", "born:");
-	user_sort_and_print(born_comparator, count, fs, [](const std::size_t idx, const user &u) { printf("idx=%lu, born=%s\n", idx, u.born); });
+	user_sort_and_print(
+		 born_comparator
+		,count
+		,fs
+		,[](const std::size_t idx, const user &u) { printf("idx=%lu, born=%s\n", idx, u.born); }
+	);
+	
 	printf("%s\n", "name:");
-	user_sort_and_print(name_comparator, count, fs, [](const std::size_t idx, const user &u) { printf("idx=%lu, name=%s\n", idx, u.name); });
+	user_sort_and_print(
+		 name_comparator
+		,count
+		,fs
+		,[](const std::size_t idx, const user &u) { printf("idx=%lu, name=%s\n", idx, u.name); }
+	);
+	
 	printf("%s\n", "address:");
-	user_sort_and_print(address_comparator, count, fs, [](const std::size_t idx, const user &u) { printf("idx=%lu, address=%s\n", idx, u.address); });
+	user_sort_and_print(
+		 address_comparator
+		,count
+		,fs
+		,[](const std::size_t idx, const user &u) { printf("idx=%lu, address=%s\n", idx, u.address); }
+	);
 }
 
 /***************************************************************************/
