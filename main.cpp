@@ -1,3 +1,4 @@
+
 #include "fs-storage-sort.hpp"
 
 #include <cstring>
@@ -101,7 +102,7 @@ void user_test(const char *fname, const std::size_t count) {
 
 int main() {
 
-	user_test("test.dat", 1000*1000);
+	user_test("test.dat", 1000*10);
 
 	return 0;
 }
