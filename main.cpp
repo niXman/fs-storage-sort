@@ -18,15 +18,15 @@ bool age_comparator(const user *l, const user *r) {
 }
 
 bool born_comparator(const user *l, const user *r) {
-	return strcmp(l->born, r->born) > 0;
+	return std::strcmp(l->born, r->born) > 0;
 }
 
 bool name_comparator(const user *l, const user *r) {
-	return strcmp(l->name, r->name) > 0;
+	return std::strcmp(l->name, r->name) > 0;
 }
 
 bool address_comparator(const user *l, const user *r) {
-	return strcmp(l->address, r->address) > 0;
+	return std::strcmp(l->address, r->address) > 0;
 }
 
 /***************************************************************************/
@@ -56,36 +56,44 @@ void user_test(const char *fname, const std::size_t count) {
 	}
 	fs.flush();
 
-	printf("%s\n", "age:");
+	std::cout << "age:" << std::endl;
 	user_sort_and_print(
 		 age_comparator
 		,count
 		,fs
-		,[](const std::size_t idx, const user &u) { printf("idx=%lu, age=%u\n", idx, u.age); }
+		,[](const std::size_t idx, const user &u) {
+			std::cout << "idx=" << idx << ", age=" << u.age << std::endl;
+		}
 	);
-	
-	printf("%s\n", "born:");
+
+	std::cout << "born:" << std::endl;
 	user_sort_and_print(
 		 born_comparator
 		,count
 		,fs
-		,[](const std::size_t idx, const user &u) { printf("idx=%lu, born=%s\n", idx, u.born); }
+		,[](const std::size_t idx, const user &u) {
+			std::cout << "idx=" << idx << ", born=" << u.born << std::endl;
+		}
 	);
-	
-	printf("%s\n", "name:");
+
+	std::cout << "name:" << std::endl;
 	user_sort_and_print(
 		 name_comparator
 		,count
 		,fs
-		,[](const std::size_t idx, const user &u) { printf("idx=%lu, name=%s\n", idx, u.name); }
+		,[](const std::size_t idx, const user &u) {
+			std::cout << "idx=" << idx << ", name=" << u.name << std::endl;
+		}
 	);
-	
-	printf("%s\n", "address:");
+
+	std::cout << "address:" << std::endl;
 	user_sort_and_print(
 		 address_comparator
 		,count
 		,fs
-		,[](const std::size_t idx, const user &u) { printf("idx=%lu, address=%s\n", idx, u.address); }
+		,[](const std::size_t idx, const user &u) {
+			std::cout << "idx=" << idx << ", address=" << u.address << std::endl;
+		}
 	);
 }
 
@@ -93,7 +101,7 @@ void user_test(const char *fname, const std::size_t count) {
 
 int main() {
 
-	user_test("test.dat", 1000*10);
+	user_test("test.dat", 1000*1000);
 
 	return 0;
 }

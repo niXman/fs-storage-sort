@@ -1,10 +1,10 @@
+
 #ifndef _file_sort_hpp
 #define _file_sort_hpp
 
 #include <cstdint>
 #include <cassert>
 #include <cstdio>
-#include <string>
 #include <memory>
 
 namespace filesort {
@@ -13,15 +13,14 @@ namespace filesort {
 
 template<typename T>
 struct filesort {
-  filesort(const std::string &fname) {
-		file = std::fopen(fname.c_str(), "w+b");
-		assert(file);
-	}
+	filesort(const char *fname)
+		:file(std::fopen(fname, "w+b"))
+	{ assert(file); }
 	~filesort()
-	{ fclose(file); }
+	{ std::fclose(file); }
 
 	void write(const T *item, const std::uint64_t pos = -1) {
-		if ( pos == -1ul ) {
+		if ( pos == -1 ) {
 			assert(std::fwrite(item, 1, sizeof(T), file) == sizeof(T));
 		} else {
 			seek(pos);
@@ -30,7 +29,7 @@ struct filesort {
 	}
 
 	void read(T *item, const std::uint64_t pos = -1) {
-		if ( pos == -1ul ) {
+		if ( pos == -1 ) {
 			assert(std::fread(item, 1, sizeof(T), file) == sizeof(T));
 		} else {
 			seek(pos);
@@ -59,39 +58,39 @@ struct filesort {
 	void sort(bool(*cmp)(const T*, const T*), std::uint64_t left, std::uint64_t right) {
 		std::uint64_t base, opposite;
 
-		std::unique_ptr<T> tmp1(new T());
-		std::unique_ptr<T> tmp2(new T());
+		T tmp1, tmp2;
 
-		if ( left == -1ul || right == -1ul ) {
+		if ( left == -1 || right == -1 ) {
 			left = 0;
 			right = items();
 			assert(right > 0);
 			right -= 1;
 		}
 
-		if ( (right-left) < 2 ) return;
+		if ( (right-left) < 2 )
+			return;
 
 		base = left;
 		opposite = right;
 
-		read(tmp1.get(), base);
+		read(&tmp1, base);
 
 		while ( base != opposite ) {
-			read(tmp2.get(), opposite);
-			if ( cmp(tmp1.get(), tmp2.get()) ^ (base > opposite) ) {
-				write(tmp2.get(), base);
-				write(tmp1.get(), opposite);
+			read(&tmp2, opposite);
+			if ( cmp(&tmp1, &tmp2) ^ (base > opposite) ) {
+				write(&tmp2, base);
+				write(&tmp1, opposite);
 
 				const std::uint64_t p = base;
 				base = opposite;
 
-				read(tmp1.get(), base);
+				read(&tmp1, base);
 				opposite = (p < opposite) ? p+1 : p-1;
 			} else {
 				opposite = (base < opposite) ? opposite-1 : opposite+1;
 			}
 		}
-		
+
 		if ( base == 0 || (base + 1) == right )
 			return;
 
