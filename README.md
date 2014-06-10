@@ -1,4 +1,4 @@
 fs-storage-sort
 ===============
 
-sort file of records
+sorts the file of records
