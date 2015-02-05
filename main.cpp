@@ -102,7 +102,7 @@ void user_test(const char *fname, const std::size_t count) {
 
 int main() {
 
-	user_test("test.dat", 1000*10);
+	user_test("test.dat", 1000);
 
 	return 0;
 }
