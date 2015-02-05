@@ -1,0 +1,27 @@
+language: cpp
+
+os:
+  - linux
+
+compiler:
+  - gcc
+
+notifications:
+ email:
+   on_success: change
+   on_failure: always
+
+before_install:
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install g++-4.8 qt4-qmake; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+
+install:
+  - cd $TRAVIS_BUILD_DIR
+  - qmake
+  - make
+
+script:
+  - cd $TRAVIS_BUILD_DIR
+  - ./fs-storage-sort
